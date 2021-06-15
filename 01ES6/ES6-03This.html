@@ -16,7 +16,12 @@
             constructor(){
                 this.color = "빨간색 스포츠카";
             }
+            //멤버함수를 화살표함수로 선언하면..
             changeColor = () => {
+                /*
+                this를 사용했을때 항상 동일한 객체를 가리키게 되어
+                아래 두개의 문장 모두 사용할 수 있다.
+                */
                 document.getElementById("myDiv2").innerHTML += this.color;
                 document.getElementById("myDiv2").innerHTML += this;
             }
@@ -24,6 +29,9 @@
 
         myCar = new Car();
 
+        /*
+        호출하는 주체가 달라져도 this는 항상 Car객체를 가리키게 된다.
+        */
         window.addEventListener("load", myCar.changeColor);
         document.getElementById("btn2").addEventListener("click",
             myCar.changeColor);
