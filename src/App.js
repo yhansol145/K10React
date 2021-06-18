@@ -2,25 +2,17 @@
 import React, { Component } from 'react';
 import './App.css';
 
-/*
-외부 js파일로 모듈화한 컴포넌트를 해당 문서로 import하기 위한
-구문으로, export default로 지정한 이름을 그대로 사용하면 된다.
-
-형식]
-  import 변수로 사용할 이름 from '컴포넌트 경로'
-*/
 import Subject from './components/Subject';
 import Navi from './components/Navi';
 import Content from './components/Content';
 
-
-/* 클래스명 컴포넌트(해당 실습에서 사용) */
 class App extends Component {
-  //state를 추가하기 위해 생성자를 정의한다.
   constructor(props) {
     super(props);
-    //state를 생성 및 초기화한다.
     this.state = {
+      mode: 'welcome',
+      selected_content_id: 2,
+      welcome: { title: 'Welcome', desc: 'Hello, React..!!' },
       subject: { title: 'WEB(state)', sub: 'World Wide Web(state)' },
       contents: [
         { id: 1, title: 'HTML', desc: 'HTML은 내용을 출력합니다.' },
@@ -30,19 +22,56 @@ class App extends Component {
     }
   }
 
-  /*
-  Navi컴포넌트에 반복되는 링크를 for문으로 처리하기 위해
-  state에 contents 항목을 추가한다. 객체 3개를 저장한 배열의 형태이다.
-  Navi컴포넌트로 props를 통해 전달한다.
-  */
   render() {
+    let _title, _desc = null;
+    if (this.state.mode === 'welcome') {
+      _title = this.state.welcome.title;
+      _desc = this.state.welcome.title;
+    }
+    else if (this.state.mode === 'read') {
+      //_title = this.state.contents[0].title;
+      //_desc = this.state.contents[0].title;
+
+      /*
+      selected_content_id값과 일치하는 객체를 찾아서 제목과 내용부분을
+      설정한다.
+      */
+      var i = 0;
+      while (i < this.state.contents.length) {
+        var data = this.state.contents[i];
+        if (data.id === this.state.selected_content_id) {
+          _title = data.title;
+          _desc = data.desc;
+        }
+      }
+    }
+    /*
+    Subject에 작성했던 이벤트를 Navi에도 붙여준다.
+    */
     return (
       <div className="App">
+        {/* Hello World..! */}
         <Subject
           title={this.state.subject.title}
-          sub={this.state.subject.sub} />
-        <Navi data={this.state.contents}></Navi>
-        <Content title="HTML(props)" desc="HTML is HyperText Markup Language(props)" />
+          sub={this.state.subject.sub}
+          onChangePage={function () {
+            alert('이벤트 확인용(부모)')
+            this.setState({ mode: 'welcome' })
+          }.bind(this)}
+        />
+
+        {/* 자식(Navi)에서 보내준 data-id값을 인자로 받은 후 
+          selected_content_id값을 변경한다. */}
+        <Navi data={this.state.contents}
+          onChangePage={function (id) {
+            //alert('이벤트 확인용(Navi)');
+            console.log("content_id", id);
+            this.setState({
+              mode: 'read',
+              selected_content_id: Number(id)
+            });
+          }.bind(this)}></Navi>
+        <Content title={_title} desc={_desc} />
       </div>
     );
   }
