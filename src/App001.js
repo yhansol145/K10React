@@ -1,13 +1,12 @@
-//해당 문서에서 React의 기능을 사용하기 위해 import 한다.
-import React, { Component } from 'react';
+//해당 문서에서 React의 기능을 사용하기 위해 import한다. 
+import React, {Component} from 'react';
 import './App.css';
 
-
-/* 함수형 컴포넌트(실습에서는 사용하지 않는다.) */
+/* 함수형 컴포넌트(해당 실습에서는 사용하지 않는다.) */
 // function App() {
 //   return (
 //     <div className="App">
-//       Hello React..!!
+//        Hello React..!!
 //     </div>
 //   );
 // }
@@ -16,58 +15,58 @@ import './App.css';
 
 /*
 컴포넌트를 만들때에는 항상 하나의 최상위 태그만 있어야 한다.
-그렇지 않으면 컴파일 에러가 발생한다.
+그렇지 않으면 컴파일 에러가 발생한다. 
 CDN방식에서는 React.Component를 상속하지만 모듈화 방식에서는
-아래와 같이 상속하면 된다.
+아래와같이 상속하면 된다.
 */
 class Subject extends Component {
-    render() {
-        return (
-            <header>
-                <h1>WEB</h1>
+  render(){
+    return (
+      <header>
+        <h1>WEB</h1>
         world wide web
-            </header>
-        );
-    }
+      </header>   
+    );
+  }
 }
 
 class Navi extends Component {
-    render() {
-        return (
-            <nav>
-                <ul>
-                    <li><a href="1.html">HTML</a></li>
-                    <li><a href="2.html">CSS</a></li>
-                    <li><a href="3.html">JavaScript</a></li>
-                </ul>
-            </nav>
-        );
-    }
+  render(){
+    return (
+      <nav>
+          <ul>
+              <li><a href="1.html">HTML</a></li>
+              <li><a href="2.html">CSS</a></li>
+              <li><a href="3.html">JavaScript</a></li>
+          </ul>
+      </nav>  
+    );
+  }
 }
 
 class Content extends Component {
-    render() {
-        return (
-            <article>
-                <h2>HTML</h2>
-        HTML is HyperText Markup Language
-            </article>
-        );
-    }
+  render(){
+    return (
+      <article>
+          <h2>HTML</h2>
+          HTML is HyperText Markup Language
+      </article>
+    );
+  }
 }
 
 /* 클래스명 컴포넌트(해당 실습에서 사용) */
 class App extends Component {
-    render() {
-        return (
-            <div>
-                {/* Hello World..!! */}
-                <Subject></Subject>
-                <Navi></Navi>
-                <Content></Content>
-            </div>
-        );
-    }
+  render(){
+    return (
+      <div className="App">
+        {/* Hello World..!! */}
+        <Subject></Subject>
+        <Navi></Navi>
+        <Content></Content>
+      </div>
+    );
+  }
 }
 
 export default App;
